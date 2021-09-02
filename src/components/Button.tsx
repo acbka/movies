@@ -25,10 +25,8 @@ const Btn = styled.button<BtnPropsType>`
   border-radius: 25px;
   margin: 10px auto;
   cursor: pointer;
-  ${(props) => ({
-    color: props.disabled ? "#000" : "#fff",
-    background: props.disabled ? "var(--color-grey)" : props.bgColor,
-  })}
+  color: #fff;
+  background: ${(props) => props.bgColor};
   box-shadow: inset 0 -0.6em 1em -0.35em rgba(0, 0, 0, 0.17),
     inset 0 0.6em 2em -0.3em rgba(255, 255, 255, 0.15),
     inset 0 0 0em 0.05em rgba(255, 255, 255, 0.12);
@@ -36,11 +34,17 @@ const Btn = styled.button<BtnPropsType>`
     box-shadow: inset 0 0.6em 2em -0.3em rgba(0, 0, 0, 0.15),
       inset 0 0 0em 0.05em rgba(255, 255, 255, 0.12);
   }
+  &:disabled {
+    color: #000;
+    background: var(--color-grey);
+    &:hover {
+      color: #000;
+      background: var(--color-grey);
+    }
+  }
   &:hover {
-    ${(props) => ({
-      color: props.disabled ? "#000" : "#fff",
-      background: props.disabled ? "var(--color-grey)" : "#000",
-    })}
+    color: #fff;
+    background: #000;
   }
 `;
 

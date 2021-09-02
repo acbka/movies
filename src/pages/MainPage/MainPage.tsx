@@ -28,40 +28,47 @@ const PaginationWrap = styled.div`
 const MainPage = () => {
   const [isTable, setIsTable] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState({
     page: 0,
     results: [],
     total_pages: 0,
     total_results: 0,
   });
-
+  const url = `https://api.themoviedb.org/3/discover/movie?api_key=dd4bd51f8d6385246bd537b189c291ab&page=${page}`;
   useEffect(() => {
-    fetchData({ page }).then(setData);
-  }, [page]);
+    setIsLoading(true);
+    fetchData({ url }).then((data) => {
+      setData(data);
+      setIsLoading(false);
+    });
+  }, [url]);
 
   const choosePage = (value: number) => {
     setPage(value);
   };
-console.log("pages", data.results)
+  console.log("pages", data.results);
   return (
     <Wrapper>
       <Header />
       <Main>
         <Aside callBack={setIsTable} />
-        <div>
-          {!!data.results.length && isTable ? (
-            <MoviesTable movies={data.results} />
-          ) : (
-            <MoviesList movies={data.results} />
-          )}
-          <PaginationWrap>
-            <Pagination
-              page={page}
-              pages={data.total_pages}
-              setPage={choosePage}
-            />
-          </PaginationWrap>
-        </div>
+        {!isLoading && (
+          <div>
+            {isTable ? (
+              <MoviesTable movies={data.results} />
+            ) : (
+              <MoviesList movies={data.results} />
+            )}
+            <PaginationWrap>
+              <Pagination
+                page={page}
+                pages={data.total_pages}
+                setPage={choosePage}
+              />
+            </PaginationWrap>
+          </div>
+        )}
       </Main>
     </Wrapper>
   );
