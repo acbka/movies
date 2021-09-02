@@ -12,8 +12,8 @@ export const fetchData = async ({ page }: FetchDataPropsType) => {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
-  });
+  })
+
    const json = await response.json();
-   // const data = await json.results
-   return json.results
+  return json;
 };
