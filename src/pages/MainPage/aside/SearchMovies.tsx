@@ -25,7 +25,6 @@ const CustomInput = styled.input`
 `;
 const SearchMovies = ({ activeButton }: SearchMoviesPropsType) => {
   const [isInputShown, setIsInputShown] = useState(false);
-
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
      activeButton(e.target.value);
   };

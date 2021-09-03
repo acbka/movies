@@ -21,6 +21,7 @@ const ArrowRight = styled(ArrowRightIcon)`
     fill: #fff;
   }
 `;
+
 const ArrowLeft = styled(ArrowRightIcon)`
   width: 16px;
   height: 16px;
@@ -60,11 +61,11 @@ const Pagination = ({ pages, page, setPage }: PaginationPropsType) => {
     <>
       {!!pages && (
         <Wrapper>
-          <IconButton isDisabled={page === 1} handleClick={previousPage}>
+          <IconButton disabled={page === 1} handleClick={previousPage}>
             <ArrowLeft />
           </IconButton>
           {buttonsArray}
-          <IconButton isDisabled={page === pages} handleClick={nextPage}>
+          <IconButton disabled={page === pages} handleClick={nextPage}>
             <ArrowRight />
           </IconButton>
         </Wrapper>

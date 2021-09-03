@@ -2,14 +2,14 @@ import styled from "@emotion/styled/macro";
 
 type IconButtonPropsType = {
   isActive?: boolean;
-  isDisabled?: boolean;
+  disabled?: boolean;
   handleClick: () => void;
   bgColor?: string;
   children: React.ReactNode;
 };
 type StyledBtnPropsType = {
   isActive?: boolean;
-  isDisabled?: boolean;
+  disabled?: boolean;
   bgColor?: string;
 };
 
@@ -18,7 +18,7 @@ const StyledBtn = styled.button<StyledBtnPropsType>`
   height: 35px;
   color: #fff;
   background: ${(props) =>
-    props.isDisabled
+    props.disabled
       ? "var(--color-grey)"
       : props.isActive
       ? "var(--color-green)"
@@ -32,7 +32,7 @@ const StyledBtn = styled.button<StyledBtnPropsType>`
 
 const IconButton = ({
   isActive,
-  isDisabled,
+  disabled,
   handleClick,
   children,
   bgColor,
@@ -42,7 +42,7 @@ const IconButton = ({
       <StyledBtn
         isActive={isActive}
         onClick={handleClick}
-        isDisabled={isDisabled}
+        disabled={disabled}
         bgColor={bgColor}
       >
         {children}

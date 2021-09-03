@@ -31,7 +31,7 @@ const PreviewCard = ({ movie, className }: PreviewCardPropsType) => {
   return (
     <Wrapper className={className}>
       <Thumbnail
-        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+        src={`https://www.themoviedb.org/t/p/w220_and_h330_face${movie.poster_path}`}
         alt="poster"
       />
       <Content>

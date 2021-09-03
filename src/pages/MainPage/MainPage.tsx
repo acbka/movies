@@ -37,17 +37,24 @@ const MainPage = () => {
     total_pages: 0,
     total_results: 0,
   });
+   
+   const setInintialSortAndSerch = (value: string) => {
+      setPartialUrl(value)
+      setPage(1)
+   }
 
   useEffect(() => {
     const url = `${partialUrl}${page}`;
     fetchData({ url }).then(setData);
   }, [partialUrl, page]);
-
+   
+   
+console.log(data.results)
   return (
     <Wrapper>
       <Header />
       <Main>
-        <Aside changeView={setIsTable} changeArrangement={setPartialUrl} />
+        <Aside changeView={setIsTable} changeArrangement={setInintialSortAndSerch} />
         <div>
           {isTable ? (
             <MoviesTable movies={data.results} />

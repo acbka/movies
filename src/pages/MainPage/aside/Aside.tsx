@@ -58,7 +58,6 @@ const Aside = ({ changeView, changeArrangement }: AsidePropsType) => {
   const [isSearchBtnActive, setIsSearchBtnActive] = useState(false);
   const [sortBy, setSortBy] = useState("");
   const [searchString, setSearchString] = useState("");
-
   const partialSortUrl = `https://api.themoviedb.org/3/discover/movie?api_key=dd4bd51f8d6385246bd537b189c291ab&sort_by=${sortBy}&page=`;
   const partialSearchUrl = `https://api.themoviedb.org/3/search/movie?api_key=dd4bd51f8d6385246bd537b189c291ab&query=${searchString}&page=`;
 
