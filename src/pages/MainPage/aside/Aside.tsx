@@ -67,22 +67,27 @@ const Aside = ({ changeView, changeArrangement }: AsidePropsType) => {
     setIsTable(false);
     changeView?.(false);
   };
+
   const showTable = () => {
     setIsTable(true);
     setIsList(false);
     changeView?.(true);
   };
+
   const sortMovies = (value: string) => {
     setIsSearchBtnActive(true);
     setSortBy(value);
   };
+
   const searchMovies = (value: string) => {
     setIsSearchBtnActive(true);
     setSearchString(value);
   };
+
   const showSelectedMovies = () => {
-     changeArrangement?.(sortBy ? partialSortUrl : partialSearchUrl);
-     setIsSearchBtnActive(false)
+    changeArrangement?.(sortBy ? partialSortUrl : partialSearchUrl);
+    setIsSearchBtnActive(false);
+    setSortBy("");
   };
 
   return (
