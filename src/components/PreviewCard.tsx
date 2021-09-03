@@ -8,9 +8,16 @@ type PreviewCardPropsType = {
 
 const Wrapper = styled.div`
   display: flex;
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+  overflow: hidden;
 `;
 const Content = styled.div`
   display: flex;
+`;
+const Thumbnail = styled.img`
+  height: 273px;
 `;
 const Title = styled.h4`
   font-weight: 700;
@@ -23,7 +30,7 @@ const ReleaseDate = styled.p`
 const PreviewCard = ({ movie, className }: PreviewCardPropsType) => {
   return (
     <Wrapper className={className}>
-      <img
+      <Thumbnail
         src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
         alt="poster"
       />

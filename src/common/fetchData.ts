@@ -9,8 +9,7 @@ export const fetchData = async ({ url }: FetchDataPropsType) => {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
-  })
-
-   const json = await response.json();
+  });
+  const json = await response.json();
   return json;
 };

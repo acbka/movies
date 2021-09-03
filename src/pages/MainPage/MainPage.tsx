@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled/macro";
 import { fetchData } from "../../common/fetchData";
 import Header from "./Header";
-import Aside from "./Aside";
+import Aside from "./aside/Aside"
 import MoviesTable from "../../components/MoviesTable";
 import MoviesList from "../../components/MoviesList";
 import Pagination from "../../components/pagination/Pagination";
@@ -28,47 +28,40 @@ const PaginationWrap = styled.div`
 const MainPage = () => {
   const [isTable, setIsTable] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState(false);
+  const [partialUrl, setPartialUrl] = useState(
+    `https://api.themoviedb.org/3/discover/movie?api_key=dd4bd51f8d6385246bd537b189c291ab&page=`
+  );
   const [data, setData] = useState({
     page: 0,
     results: [],
     total_pages: 0,
     total_results: 0,
   });
-  const url = `https://api.themoviedb.org/3/discover/movie?api_key=dd4bd51f8d6385246bd537b189c291ab&page=${page}`;
-  useEffect(() => {
-    setIsLoading(true);
-    fetchData({ url }).then((data) => {
-      setData(data);
-      setIsLoading(false);
-    });
-  }, [url]);
 
-  const choosePage = (value: number) => {
-    setPage(value);
-  };
-  console.log("pages", data.results);
+  useEffect(() => {
+    const url = `${partialUrl}${page}`;
+    fetchData({ url }).then(setData);
+  }, [partialUrl, page]);
+
   return (
     <Wrapper>
       <Header />
       <Main>
-        <Aside callBack={setIsTable} />
-        {!isLoading && (
-          <div>
-            {isTable ? (
-              <MoviesTable movies={data.results} />
-            ) : (
-              <MoviesList movies={data.results} />
-            )}
-            <PaginationWrap>
-              <Pagination
-                page={page}
-                pages={data.total_pages}
-                setPage={choosePage}
-              />
-            </PaginationWrap>
-          </div>
-        )}
+        <Aside changeView={setIsTable} changeArrangement={setPartialUrl} />
+        <div>
+          {isTable ? (
+            <MoviesTable movies={data.results} />
+          ) : (
+            <MoviesList movies={data.results} />
+          )}
+          <PaginationWrap>
+            <Pagination
+              page={page}
+              pages={data.total_pages}
+              setPage={setPage}
+            />
+          </PaginationWrap>
+        </div>
       </Main>
     </Wrapper>
   );

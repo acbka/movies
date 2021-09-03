@@ -21,9 +21,6 @@ const MovieInfo = styled(PreviewCard)`
   flex-direction: column;
   align-content: flex-start;
   margin: 15px 12px;
-  border: 1px solid #e3e3e3;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
   & > div {
     flex-direction: column;
     justify-content: center;

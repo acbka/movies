@@ -1,11 +1,13 @@
 import { useState } from "react";
 import styled from "@emotion/styled/macro";
-import Button from "../../components/Button";
+import Button from "../../../components/Button";
 
-import SortMovies from "./sortMovies/SortMovies";
+import SortMovies from "../aside/sortMovies/SortMovies";
+import SearchMovies from "../aside/SearchMovies";
 
 type AsidePropsType = {
-  callBack: (arg: boolean) => void;
+  changeView?: (arg: boolean) => void;
+  changeArrangement?: (arg: string) => void;
 };
 
 type CustomButtonPropsType = {
@@ -50,19 +52,37 @@ const CustomButton = styled(Button)<CustomButtonPropsType>`
   }
 `;
 
-const Aside = ({ callBack }: AsidePropsType) => {
+const Aside = ({ changeView, changeArrangement }: AsidePropsType) => {
   const [isTable, setIsTable] = useState(true);
   const [isList, setIsList] = useState(false);
+  const [isSearchBtnActive, setIsSearchBtnActive] = useState(false);
+  const [sortBy, setSortBy] = useState("");
+  const [searchString, setSearchString] = useState("");
+
+  const partialSortUrl = `https://api.themoviedb.org/3/discover/movie?api_key=dd4bd51f8d6385246bd537b189c291ab&sort_by=${sortBy}&page=`;
+  const partialSearchUrl = `https://api.themoviedb.org/3/search/movie?api_key=dd4bd51f8d6385246bd537b189c291ab&query=${searchString}&page=`;
 
   const showList = () => {
     setIsList(true);
     setIsTable(false);
-    callBack(false);
+    changeView?.(false);
   };
   const showTable = () => {
     setIsTable(true);
     setIsList(false);
-    callBack(true);
+    changeView?.(true);
+  };
+  const sortMovies = (value: string) => {
+    setIsSearchBtnActive(true);
+    setSortBy(value);
+  };
+  const searchMovies = (value: string) => {
+    setIsSearchBtnActive(true);
+    setSearchString(value);
+  };
+  const showSelectedMovies = () => {
+     changeArrangement?.(sortBy ? partialSortUrl : partialSearchUrl);
+     setIsSearchBtnActive(false)
   };
 
   return (
@@ -84,13 +104,16 @@ const Aside = ({ callBack }: AsidePropsType) => {
         </ButtonsWrap>
       </Block>
       <Block>
-        <SortMovies />
+        <SearchMovies activeButton={searchMovies} />
+      </Block>
+      <Block>
+        <SortMovies activeButton={sortMovies} />
       </Block>
       <Button
         title="Search"
         bgColor="var(--color-blue)"
-        handleClick={showList}
-        disabled={true}
+        handleClick={showSelectedMovies}
+        disabled={!isSearchBtnActive}
       />
     </Wrapper>
   );

@@ -14,10 +14,11 @@ const Wrapper = styled.div`
   padding-top: 5px;
   padding-left: 30px;
   @media (max-width: 750px) {
-   padding-left: 0
- }
+    padding-left: 0;
+  }
 `;
 const MovieInfo = styled(PreviewCard)`
+  width: 100%;
   flex-direction: row;
   align-items: center;
   margin: 10px;
@@ -27,10 +28,11 @@ const MovieInfo = styled(PreviewCard)`
   }
   & > div {
     justify-content: flex-start;
+    flex-direction: column;
     align-content: center;
-    width: 100%;
+    margin-left: 30px;
     & > h4 {
-      margin: 0 10px;
+      font-size: 19px;
     }
   }
 `;

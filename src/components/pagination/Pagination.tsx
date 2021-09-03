@@ -1,12 +1,28 @@
 import IconButton from "../IconButton";
+import styled from "@emotion/styled/macro";
 import PaginationItem from "./PaginationItem";
-import { ArrowLeft, ArrowRight } from "./arrows";
+import { ReactComponent as ArrowRightIcon } from "../../assets/arrow-right.svg";
 
 type PaginationPropsType = {
   pages: number;
   page: number;
   setPage: (arg: number) => void;
 };
+
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const ArrowRight = styled(ArrowRightIcon)`
+  width: 16px;
+  height: 16px;
+`;
+const ArrowLeft = styled(ArrowRightIcon)`
+  width: 16px;
+  height: 16px;
+  transform: rotate(180deg);
+`;
 
 const Pagination = ({ pages, page, setPage }: PaginationPropsType) => {
   const previousPage = () => {
@@ -36,13 +52,17 @@ const Pagination = ({ pages, page, setPage }: PaginationPropsType) => {
 
   return (
     <>
-      <IconButton isDisabled={page === 1} handleClick={previousPage}>
-        <ArrowLeft />
-      </IconButton>
-      {buttonsArray}
-      <IconButton isDisabled={page === pages} handleClick={nextPage}>
-        <ArrowRight />
-      </IconButton>
+      {!!pages && (
+        <Wrapper>
+          <IconButton isDisabled={page === 1} handleClick={previousPage}>
+            <ArrowLeft />
+          </IconButton>
+          {buttonsArray}
+          <IconButton isDisabled={page === pages} handleClick={nextPage}>
+            <ArrowRight />
+          </IconButton>
+        </Wrapper>
+      )}
     </>
   );
 };
