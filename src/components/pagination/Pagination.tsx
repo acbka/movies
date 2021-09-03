@@ -17,10 +17,16 @@ const Wrapper = styled.div`
 const ArrowRight = styled(ArrowRightIcon)`
   width: 16px;
   height: 16px;
+  & > path {
+    fill: #fff;
+  }
 `;
 const ArrowLeft = styled(ArrowRightIcon)`
   width: 16px;
   height: 16px;
+  & > path {
+    fill: #fff;
+  }
   transform: rotate(180deg);
 `;
 
