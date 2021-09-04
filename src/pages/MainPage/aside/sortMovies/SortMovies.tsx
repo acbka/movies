@@ -1,32 +1,13 @@
 import React, { useState, ChangeEvent } from "react";
 import styled from "@emotion/styled/macro";
 import IconButton from "../../../../components/IconButton";
-import { ReactComponent as ArrowRightIcon } from "../../../../assets/arrow-right.svg";
 import { sortList } from "./sortList";
+import { TitleWrap, Title, ArrowDown, ArrowRight } from "../commonStyles";
 
 type SortMoviesPropsType = {
-  activeButton: (arg: string) => void;
+  getSelectedValue: (arg: string) => void;
 };
 
-export const TitleWrap = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--color-grey);
-`;
-export const Title = styled.h3`
-  font-size: 18px;
-  padding-left: 15px;
-`;
-export const ArrowRight = styled(ArrowRightIcon)`
-  width: 16px;
-  height: 16px;
-`;
-export const ArrowDown = styled(ArrowRightIcon)`
-  width: 16px;
-  height: 16px;
-  transform: rotate(90deg);
-`;
 const SelectWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -49,12 +30,13 @@ const CustomSelect = styled.select`
   line-height: inherit;
 `;
 
-const SortMovies = ({ activeButton }: SortMoviesPropsType) => {
+const SortMovies = ({ getSelectedValue }: SortMoviesPropsType) => {
   const [isSelectShown, setIsSelectShown] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    activeButton(e.target.value);
+    getSelectedValue(e.target.value);
   };
+
   const list = sortList.map((item, index) => (
     <option key={index} value={item.urlValue}>
       {item.title}

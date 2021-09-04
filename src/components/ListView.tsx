@@ -1,8 +1,8 @@
 import { movieType } from "../common/movieType";
 import styled from "@emotion/styled/macro";
-import PreviewCard from "./PreviewCard";
+import MoviePreview from "./MoviePreview";
 
-type MoviesListPropsType = {
+type ListViewPropsType = {
   movies: movieType[];
 };
 
@@ -17,7 +17,7 @@ const Wrapper = styled.div`
     padding-left: 0;
   }
 `;
-const MovieInfo = styled(PreviewCard)`
+const MovieInfo = styled(MoviePreview)`
   width: 100%;
   flex-direction: row;
   align-items: center;
@@ -37,11 +37,11 @@ const MovieInfo = styled(PreviewCard)`
   }
 `;
 
-const MoviesList = ({ movies }: MoviesListPropsType) => {
+const ListView = ({ movies }: ListViewPropsType) => {
   const moviesList = movies.map((item, index) => [
     <MovieInfo key={index} movie={item} />,
   ]);
   return <Wrapper>{moviesList}</Wrapper>;
 };
 
-export default MoviesList;
+export default ListView;

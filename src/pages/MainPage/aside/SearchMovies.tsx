@@ -1,15 +1,10 @@
 import React, { useState, ChangeEvent } from "react";
 import styled from "@emotion/styled/macro";
 import IconButton from "../../../components/IconButton";
-import {
-  TitleWrap,
-  Title,
-  ArrowRight,
-  ArrowDown,
-} from "./sortMovies/SortMovies";
+import { TitleWrap, Title, ArrowRight, ArrowDown } from "./commonStyles";
 
 type SearchMoviesPropsType = {
-  activeButton: (arg: string) => void;
+  getSearchValue: (arg: string) => void;
 };
 
 const CustomInput = styled.input`
@@ -23,11 +18,14 @@ const CustomInput = styled.input`
   cursor: inherit;
   line-height: inherit;
 `;
-const SearchMovies = ({ activeButton }: SearchMoviesPropsType) => {
+
+const SearchMovies = ({ getSearchValue }: SearchMoviesPropsType) => {
   const [isInputShown, setIsInputShown] = useState(false);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-     activeButton(e.target.value);
+    getSearchValue(e.target.value);
   };
+
   return (
     <>
       <TitleWrap>

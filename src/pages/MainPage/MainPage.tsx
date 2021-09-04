@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled/macro";
 import { fetchData } from "../../common/fetchData";
 import Header from "./Header";
+import ThumbnailView from "../../components/ThumbnailView";
+import ListView from "../../components/ListView";
 import Aside from "./aside/Aside";
-import MoviesTable from "../../components/MoviesTable";
-import MoviesList from "../../components/MoviesList";
 import Pagination from "../../components/pagination/Pagination";
 
 const Wrapper = styled.div`
@@ -22,14 +22,14 @@ const Main = styled.div`
 const PaginationWrap = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 30px;
 `;
 
 const MainPage = () => {
-  const [isTable, setIsTable] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
+  const [isCells, setIsCells] = useState<boolean>(true);
   const [partialUrl, setPartialUrl] = useState(
-    `https://api.themoviedb.org/3/discover/movie?api_key=dd4bd51f8d6385246bd537b189c291ab&page=`
+    "https://api.themoviedb.org/3/discover/movie?api_key=dd4bd51f8d6385246bd537b189c291absort_by=popularity.desc&page="
   );
   const [data, setData] = useState({
     page: 0,
@@ -38,7 +38,7 @@ const MainPage = () => {
     total_results: 0,
   });
 
-  const setInintialSortAndSerch = (value: string) => {
+  const setInintialSort = (value: string) => {
     setPartialUrl(value);
     setPage(1);
   };
@@ -53,20 +53,20 @@ const MainPage = () => {
       <Header />
       <Main>
         <Aside
-          changeView={setIsTable}
-          changeArrangement={setInintialSortAndSerch}
+          changeView={setIsCells}
+          changeMoviesArrangement={setInintialSort}
         />
         <div>
-          {isTable ? (
-            <MoviesTable movies={data.results} />
+          {isCells ? (
+            <ThumbnailView movies={data.results} />
           ) : (
-            <MoviesList movies={data.results} />
+            <ListView movies={data.results} />
           )}
           {!!data.total_pages && (
             <PaginationWrap>
               <Pagination
-                page={page}
                 pages={data.total_pages}
+                page={page}
                 setPage={setPage}
               />
             </PaginationWrap>

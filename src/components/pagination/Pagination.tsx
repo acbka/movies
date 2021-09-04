@@ -12,6 +12,10 @@ type PaginationPropsType = {
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
+  & > div {
+    display: flex;
+    align-items: center;
+  }
 `;
 const ArrowRight = styled(ArrowRightIcon)`
   width: 16px;
@@ -50,15 +54,14 @@ const Pagination = ({ pages, page, setPage }: PaginationPropsType) => {
     (item, index) => {
       return (
         (item === 1 && page > 3 && (
-          <>
+          <div key={index}>
             <PaginationItem
-              key={index}
               handleClick={() => setPage(item)}
               isActive={page === item}
               pageNumber={item}
             />
             <Dots>...</Dots>
-          </>
+          </div>
         )) ||
         (((item <= 5 && page <= 3 && item !== 1) ||
           (item > pages - 5 && page > pages - 3 && item !== pages) ||
@@ -74,15 +77,14 @@ const Pagination = ({ pages, page, setPage }: PaginationPropsType) => {
           />
         )) ||
         (item === pages && page < pages - 2 && (
-          <>
+          <div key={index}>
             <Dots>...</Dots>
             <PaginationItem
-              key={index}
               handleClick={() => setPage(item)}
               isActive={page === item}
               pageNumber={item}
             />
-          </>
+          </div>
         ))
       );
     }

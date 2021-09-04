@@ -16,6 +16,9 @@ type StyledBtnPropsType = {
 const StyledBtn = styled.button<StyledBtnPropsType>`
   width: 35px;
   height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #fff;
   background: ${(props) =>
     props.isActive ? "var(--color-blue)" : props.bgColor};
@@ -29,18 +32,18 @@ const StyledBtn = styled.button<StyledBtnPropsType>`
 `;
 
 const IconButton = ({
+  bgColor,
   isActive,
   disabled,
   children,
-  bgColor,
   handleClick,
 }: IconButtonPropsType) => {
   return (
     <StyledBtn
-      isActive={isActive}
-      onClick={handleClick}
-      disabled={disabled}
       bgColor={bgColor}
+      isActive={isActive}
+      disabled={disabled}
+      onClick={handleClick}
     >
       {children}
     </StyledBtn>

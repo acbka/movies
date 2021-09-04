@@ -1,13 +1,12 @@
 import { useState } from "react";
 import styled from "@emotion/styled/macro";
 import Button from "../../../components/Button";
-
-import SortMovies from "../aside/sortMovies/SortMovies";
-import SearchMovies from "../aside/SearchMovies";
+import SortMovies from "./sortMovies/SortMovies";
+import SearchMovies from "./SearchMovies";
 
 type AsidePropsType = {
   changeView?: (arg: boolean) => void;
-  changeArrangement?: (arg: string) => void;
+  changeMoviesArrangement?: (arg: string) => void;
 };
 
 type CustomButtonPropsType = {
@@ -52,40 +51,37 @@ const CustomButton = styled(Button)<CustomButtonPropsType>`
   }
 `;
 
-const Aside = ({ changeView, changeArrangement }: AsidePropsType) => {
-  const [isTable, setIsTable] = useState(true);
-  const [isList, setIsList] = useState(false);
-  const [isSearchBtnActive, setIsSearchBtnActive] = useState(false);
+const Aside = ({ changeView, changeMoviesArrangement }: AsidePropsType) => {
+  const [isCells, setIsCells] = useState(true);
+  const [isSearchBtnDisabled, setIsSearchBtnDisabled] = useState(true);
   const [sortBy, setSortBy] = useState("");
   const [searchString, setSearchString] = useState("");
   const partialSortUrl = `https://api.themoviedb.org/3/discover/movie?api_key=dd4bd51f8d6385246bd537b189c291ab&sort_by=${sortBy}&page=`;
   const partialSearchUrl = `https://api.themoviedb.org/3/search/movie?api_key=dd4bd51f8d6385246bd537b189c291ab&query=${searchString}&page=`;
 
   const showList = () => {
-    setIsList(true);
-    setIsTable(false);
+    setIsCells(false);
     changeView?.(false);
   };
 
-  const showTable = () => {
-    setIsTable(true);
-    setIsList(false);
+  const showCells = () => {
+    setIsCells(true);
     changeView?.(true);
   };
 
   const sortMovies = (value: string) => {
-    setIsSearchBtnActive(true);
+    setIsSearchBtnDisabled(false);
     setSortBy(value);
   };
 
   const searchMovies = (value: string) => {
-    setIsSearchBtnActive(true);
+    setIsSearchBtnDisabled(false);
     setSearchString(value);
   };
 
-  const showSelectedMovies = () => {
-    changeArrangement?.(sortBy ? partialSortUrl : partialSearchUrl);
-    setIsSearchBtnActive(false);
+  const showSortedOrFoundMovies = () => {
+    changeMoviesArrangement?.(sortBy ? partialSortUrl : partialSearchUrl);
+    setIsSearchBtnDisabled(true);
     setSortBy("");
   };
 
@@ -97,27 +93,27 @@ const Aside = ({ changeView, changeArrangement }: AsidePropsType) => {
             title="List"
             bgColor="var(--color-green)"
             handleClick={showList}
-            disabled={isList}
+            disabled={!isCells}
           />
           <CustomButton
-            title="Table"
+            title="Cells"
             bgColor="var(--color-blue)"
-            handleClick={showTable}
-            disabled={isTable}
+            handleClick={showCells}
+            disabled={isCells}
           />
         </ButtonsWrap>
       </Block>
       <Block>
-        <SearchMovies activeButton={searchMovies} />
+        <SearchMovies getSearchValue={searchMovies} />
       </Block>
       <Block>
-        <SortMovies activeButton={sortMovies} />
+        <SortMovies getSelectedValue={sortMovies} />
       </Block>
       <Button
         title="Search"
         bgColor="var(--color-blue)"
-        handleClick={showSelectedMovies}
-        disabled={!isSearchBtnActive}
+        handleClick={showSortedOrFoundMovies}
+        disabled={isSearchBtnDisabled}
       />
     </Wrapper>
   );

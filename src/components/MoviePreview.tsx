@@ -1,7 +1,7 @@
 import styled from "@emotion/styled/macro";
 import { movieType } from "../common/movieType";
 
-type PreviewCardPropsType = {
+type MoviePreviewPropsType = {
   movie: movieType;
   className?: string;
 };
@@ -18,6 +18,7 @@ const Content = styled.div`
 `;
 const Thumbnail = styled.img`
   height: 273px;
+  background: #eeeeee;
 `;
 const Title = styled.h4`
   font-weight: 700;
@@ -27,11 +28,15 @@ const ReleaseDate = styled.p`
   font-weight: 400;
 `;
 
-const PreviewCard = ({ movie, className }: PreviewCardPropsType) => {
+const MoviePreview = ({ movie, className }: MoviePreviewPropsType) => {
   return (
     <Wrapper className={className}>
       <Thumbnail
-        src={`https://www.themoviedb.org/t/p/w220_and_h330_face${movie.poster_path}`}
+        src={
+          movie.poster_path
+            ? `https://www.themoviedb.org/t/p/w220_and_h330_face${movie.poster_path}`
+            : "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
+        }
         alt="poster"
       />
       <Content>
@@ -41,5 +46,4 @@ const PreviewCard = ({ movie, className }: PreviewCardPropsType) => {
     </Wrapper>
   );
 };
-
-export default PreviewCard;
+export default MoviePreview;

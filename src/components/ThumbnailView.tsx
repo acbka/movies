@@ -1,8 +1,8 @@
 import { movieType } from "../common/movieType";
 import styled from "@emotion/styled/macro";
-import PreviewCard from "./PreviewCard";
+import MoviePreview from "./MoviePreview";
 
-type MoviesTablePropsType = {
+type ThumbnailViewPropsType = {
   movies: movieType[];
 };
 
@@ -15,7 +15,7 @@ const Wrapper = styled.div`
     justify-content: space-between;
   }
 `;
-const MovieInfo = styled(PreviewCard)`
+const MovieInfo = styled(MoviePreview)`
   width: 180px;
   height: 391px;
   flex-direction: column;
@@ -31,12 +31,12 @@ const MovieInfo = styled(PreviewCard)`
   }
 `;
 
-const MoviesTable = ({ movies }: MoviesTablePropsType) => {
-  const moviesTable = movies.map((item, index) => [
+const ThumbnailView = ({ movies }: ThumbnailViewPropsType) => {
+  const moviesThumbnail = movies.map((item, index) => [
     <MovieInfo key={index} movie={item} />,
   ]);
 
-  return <Wrapper>{moviesTable}</Wrapper>;
+  return <Wrapper>{moviesThumbnail}</Wrapper>;
 };
 
-export default MoviesTable;
+export default ThumbnailView;

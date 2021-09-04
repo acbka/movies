@@ -16,11 +16,11 @@ body {
 }
 
 code {
-   font-family: "Source Sans Pro", Arial, sans-serif;
- }
+  font-family: "Source Sans Pro", Arial, sans-serif;
+}
 
- :root {
-   --color-green: #90cea1;
-   --color-blue: #01b4e4;
-   --color-grey: #e4e7eb;
- }
+:root {
+  --color-green: #90cea1;
+  --color-blue: #01b4e4;
+  --color-grey: #e4e7eb;
+}
