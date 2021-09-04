@@ -62,13 +62,15 @@ const MainPage = () => {
           ) : (
             <MoviesList movies={data.results} />
           )}
-          <PaginationWrap>
-            <Pagination
-              page={page}
-              pages={data.total_pages}
-              setPage={setPage}
-            />
-          </PaginationWrap>
+          {!!data.total_pages && (
+            <PaginationWrap>
+              <Pagination
+                page={page}
+                pages={data.total_pages}
+                setPage={setPage}
+              />
+            </PaginationWrap>
+          )}
         </div>
       </Main>
     </Wrapper>

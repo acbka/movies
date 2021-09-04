@@ -61,8 +61,11 @@ const Pagination = ({ pages, page, setPage }: PaginationPropsType) => {
           </>
         )) ||
         (((item <= 5 && page <= 3 && item !== 1) ||
-          (item > pages - 5 && page > pages - 2 && item !== pages) ||
-          (item > page - 3 && item < page + 3)) && (
+          (item > pages - 5 && page > pages - 3 && item !== pages) ||
+          (item > page - 3 &&
+            item < page + 3 &&
+            item !== 2 &&
+            item !== pages - 1)) && (
           <PaginationItem
             key={index}
             handleClick={() => setPage(item)}
