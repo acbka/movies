@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled/macro";
 import { fetchData } from "../../common/fetchData";
 import Header from "./Header";
-import Aside from "./aside/Aside"
+import Aside from "./aside/Aside";
 import MoviesTable from "../../components/MoviesTable";
 import MoviesList from "../../components/MoviesList";
 import Pagination from "../../components/pagination/Pagination";
@@ -37,24 +37,25 @@ const MainPage = () => {
     total_pages: 0,
     total_results: 0,
   });
-   
-   const setInintialSortAndSerch = (value: string) => {
-      setPartialUrl(value)
-      setPage(1)
-   }
+
+  const setInintialSortAndSerch = (value: string) => {
+    setPartialUrl(value);
+    setPage(1);
+  };
 
   useEffect(() => {
     const url = `${partialUrl}${page}`;
     fetchData({ url }).then(setData);
   }, [partialUrl, page]);
-   
-   
-console.log(data.results)
+
   return (
     <Wrapper>
       <Header />
       <Main>
-        <Aside changeView={setIsTable} changeArrangement={setInintialSortAndSerch} />
+        <Aside
+          changeView={setIsTable}
+          changeArrangement={setInintialSortAndSerch}
+        />
         <div>
           {isTable ? (
             <MoviesTable movies={data.results} />

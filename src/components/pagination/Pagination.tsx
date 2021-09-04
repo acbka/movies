@@ -40,32 +40,61 @@ const Pagination = ({ pages, page, setPage }: PaginationPropsType) => {
   };
 
   const buttonsArray = Array.from({ length: pages }, (v, k) => k + 1).map(
-    (item, index) => (
-      <PaginationItem
-        key={index}
-        handleClick={() => setPage(item)}
-        isActive={page === item}
-        isHidden={
-          (page <= 3 && item > 5) ||
-          (page > pages - 2 && item < pages - 4) ||
-          (page > 3 &&
-            page <= pages - 2 &&
-            (item > page + 2 || item < page - 2))
-        }
-        pageNumber={item}
-      />
-    )
+    (item, index) => {
+      return (
+        (item === 1 && page > 3 && (
+          <>
+            <PaginationItem
+              key={index}
+              handleClick={() => setPage(item)}
+              isActive={page === item}
+              pageNumber={item}
+            />
+            <p>...</p>
+          </>
+        )) ||
+        (((item <= 5 && page <= 3 && item !== 1) ||
+          (item > pages - 5 && page > pages - 2 && item !== pages) ||
+          (item > page - 3 && item < page + 3)) && (
+          <PaginationItem
+            key={index}
+            handleClick={() => setPage(item)}
+            isActive={page === item}
+            pageNumber={item}
+          />
+        )) ||
+        (item === pages && page < pages - 2 && (
+          <>
+            <p>...</p>
+            <PaginationItem
+              key={index}
+              handleClick={() => setPage(item)}
+              isActive={page === item}
+              pageNumber={item}
+            />
+          </>
+        ))
+      );
+    }
   );
 
   return (
     <>
       {!!pages && (
         <Wrapper>
-          <IconButton disabled={page === 1} handleClick={previousPage}>
+          <IconButton
+            bgColor="var(--color-green)"
+            disabled={page === 1}
+            handleClick={previousPage}
+          >
             <ArrowLeft />
           </IconButton>
           {buttonsArray}
-          <IconButton disabled={page === pages} handleClick={nextPage}>
+          <IconButton
+            bgColor="var(--color-green)"
+            disabled={page === pages}
+            handleClick={nextPage}
+          >
             <ArrowRight />
           </IconButton>
         </Wrapper>

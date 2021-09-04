@@ -1,16 +1,16 @@
 import styled from "@emotion/styled/macro";
 
 type IconButtonPropsType = {
+  bgColor: string;
   isActive?: boolean;
   disabled?: boolean;
-  handleClick: () => void;
-  bgColor?: string;
   children: React.ReactNode;
+  handleClick: () => void;
 };
 type StyledBtnPropsType = {
+  bgColor: string;
   isActive?: boolean;
   disabled?: boolean;
-  bgColor?: string;
 };
 
 const StyledBtn = styled.button<StyledBtnPropsType>`
@@ -18,36 +18,32 @@ const StyledBtn = styled.button<StyledBtnPropsType>`
   height: 35px;
   color: #fff;
   background: ${(props) =>
-    props.disabled
-      ? "var(--color-grey)"
-      : props.isActive
-      ? "var(--color-green)"
-      : "var(--color-blue)"};
-      background: ${(props) => props.bgColor};
+    props.isActive ? "var(--color-blue)" : props.bgColor};
   border: none;
   border-radius: 50%;
   margin: 5px;
   cursor: pointer;
+  &:disabled {
+    background: var(--color-grey);
+  }
 `;
 
 const IconButton = ({
   isActive,
   disabled,
-  handleClick,
   children,
   bgColor,
+  handleClick,
 }: IconButtonPropsType) => {
   return (
-    <>
-      <StyledBtn
-        isActive={isActive}
-        onClick={handleClick}
-        disabled={disabled}
-        bgColor={bgColor}
-      >
-        {children}
-      </StyledBtn>
-    </>
+    <StyledBtn
+      isActive={isActive}
+      onClick={handleClick}
+      disabled={disabled}
+      bgColor={bgColor}
+    >
+      {children}
+    </StyledBtn>
   );
 };
 
