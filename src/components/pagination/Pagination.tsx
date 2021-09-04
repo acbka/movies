@@ -1,5 +1,5 @@
-import IconButton from "../IconButton";
 import styled from "@emotion/styled/macro";
+import IconButton from "../IconButton";
 import PaginationItem from "./PaginationItem";
 import { ReactComponent as ArrowRightIcon } from "../../assets/arrow-right.svg";
 
@@ -13,7 +13,6 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
 `;
-
 const ArrowRight = styled(ArrowRightIcon)`
   width: 16px;
   height: 16px;
@@ -21,7 +20,6 @@ const ArrowRight = styled(ArrowRightIcon)`
     fill: #fff;
   }
 `;
-
 const ArrowLeft = styled(ArrowRightIcon)`
   width: 16px;
   height: 16px;
@@ -30,11 +28,20 @@ const ArrowLeft = styled(ArrowRightIcon)`
   }
   transform: rotate(180deg);
 `;
+const Dots = styled.div`
+  width: 35px;
+  height: 35px;
+  background: var(--color-grey);
+  border-radius: 50%;
+  padding: 3px 11px;
+  color: #fff;
+`;
 
 const Pagination = ({ pages, page, setPage }: PaginationPropsType) => {
   const previousPage = () => {
     setPage(page - 1);
   };
+
   const nextPage = () => {
     setPage(page + 1);
   };
@@ -50,7 +57,7 @@ const Pagination = ({ pages, page, setPage }: PaginationPropsType) => {
               isActive={page === item}
               pageNumber={item}
             />
-            <p>...</p>
+            <Dots>...</Dots>
           </>
         )) ||
         (((item <= 5 && page <= 3 && item !== 1) ||
@@ -65,7 +72,7 @@ const Pagination = ({ pages, page, setPage }: PaginationPropsType) => {
         )) ||
         (item === pages && page < pages - 2 && (
           <>
-            <p>...</p>
+            <Dots>...</Dots>
             <PaginationItem
               key={index}
               handleClick={() => setPage(item)}
@@ -79,27 +86,23 @@ const Pagination = ({ pages, page, setPage }: PaginationPropsType) => {
   );
 
   return (
-    <>
-      {!!pages && (
-        <Wrapper>
-          <IconButton
-            bgColor="var(--color-green)"
-            disabled={page === 1}
-            handleClick={previousPage}
-          >
-            <ArrowLeft />
-          </IconButton>
-          {buttonsArray}
-          <IconButton
-            bgColor="var(--color-green)"
-            disabled={page === pages}
-            handleClick={nextPage}
-          >
-            <ArrowRight />
-          </IconButton>
-        </Wrapper>
-      )}
-    </>
+    <Wrapper>
+      <IconButton
+        bgColor="var(--color-green)"
+        disabled={page === 1}
+        handleClick={previousPage}
+      >
+        <ArrowLeft />
+      </IconButton>
+      {buttonsArray}
+      <IconButton
+        bgColor="var(--color-green)"
+        disabled={page === pages}
+        handleClick={nextPage}
+      >
+        <ArrowRight />
+      </IconButton>
+    </Wrapper>
   );
 };
 
