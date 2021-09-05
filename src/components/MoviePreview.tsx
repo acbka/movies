@@ -23,9 +23,18 @@ const Thumbnail = styled.img`
 const Title = styled.h4`
   font-weight: 700;
 `;
-const ReleaseDate = styled.p`
+const ReleaseDate = styled.h5`
   color: rgba(0, 0, 0, 0.6);
   font-weight: 400;
+`;
+const Overview = styled.p`
+  font-weight: 400;
+  margin: 10px 0;
+  padding-right: 20px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 `;
 
 const MoviePreview = ({ movie, className }: MoviePreviewPropsType) => {
@@ -42,6 +51,7 @@ const MoviePreview = ({ movie, className }: MoviePreviewPropsType) => {
       <Content>
         <Title>{movie.title}</Title>
         <ReleaseDate> {movie.release_date} </ReleaseDate>
+        <Overview>{movie.overview} </Overview>
       </Content>
     </Wrapper>
   );

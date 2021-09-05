@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 `;
 const MovieInfo = styled(MoviePreview)`
   width: 180px;
-  height: 391px;
+  min-height: 391px;
   flex-direction: column;
   align-content: flex-start;
   margin: 15px 12px;
@@ -28,6 +28,9 @@ const MovieInfo = styled(MoviePreview)`
     flex-wrap: wrap;
     width: 100%;
     padding: 26px 10px 12px 10px;
+    & > p {
+       display: none;
+    }
   }
 `;
 
@@ -36,7 +39,13 @@ const ThumbnailView = ({ movies }: ThumbnailViewPropsType) => {
     <MovieInfo key={index} movie={item} />,
   ]);
 
-  return <Wrapper>{moviesThumbnail}</Wrapper>;
+  return (
+    <Wrapper>
+      {movies.length
+        ? moviesThumbnail
+        : "There are no movies that matched your query."}
+    </Wrapper>
+  );
 };
 
 export default ThumbnailView;

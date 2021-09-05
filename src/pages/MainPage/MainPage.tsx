@@ -37,6 +37,7 @@ const MainPage = () => {
     total_pages: 0,
     total_results: 0,
   });
+  const errorMessage = "There are no movies that matched your query.";
 
   const setInintialSort = (value: string) => {
     setPartialUrl(value);
@@ -56,22 +57,26 @@ const MainPage = () => {
           changeView={setIsCells}
           changeMoviesArrangement={setInintialSort}
         />
-        <div>
-          {isCells ? (
-            <ThumbnailView movies={data.results} />
-          ) : (
-            <ListView movies={data.results} />
-          )}
-          {!!data.total_pages && (
-            <PaginationWrap>
-              <Pagination
-                pages={data.total_pages}
-                page={page}
-                setPage={setPage}
-              />
-            </PaginationWrap>
-          )}
-        </div>
+        {!data ? (
+          errorMessage
+        ) : (
+          <div>
+            {isCells ? (
+              <ThumbnailView movies={data.results} />
+            ) : (
+              <ListView movies={data.results} />
+            )}
+            {!!data.total_pages && (
+              <PaginationWrap>
+                <Pagination
+                  pages={data.total_pages}
+                  page={page}
+                  setPage={setPage}
+                />
+              </PaginationWrap>
+            )}
+          </div>
+        )}
       </Main>
     </Wrapper>
   );

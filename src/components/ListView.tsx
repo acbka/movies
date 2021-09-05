@@ -11,23 +11,24 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-top: 5px;
-  padding-left: 30px;
+  margin: 0 30px;
+  padding: 5px 20px;
   @media (max-width: 750px) {
     padding-left: 0;
   }
 `;
 const MovieInfo = styled(MoviePreview)`
   width: 100%;
+  height: 141px;
   flex-direction: row;
   align-items: center;
   margin: 10px;
   & > img {
-    width: 50px;
-    height: auto;
+    height: 100%;
+    width: auto;
   }
   & > div {
-    justify-content: flex-start;
+    justify-content: space-between;
     flex-direction: column;
     align-content: center;
     margin-left: 30px;
@@ -41,7 +42,13 @@ const ListView = ({ movies }: ListViewPropsType) => {
   const moviesList = movies.map((item, index) => [
     <MovieInfo key={index} movie={item} />,
   ]);
-  return <Wrapper>{moviesList}</Wrapper>;
+  return (
+    <Wrapper>
+      {movies.length
+        ? moviesList
+        : "There are no movies that matched your query."}
+    </Wrapper>
+  );
 };
 
 export default ListView;

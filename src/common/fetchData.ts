@@ -10,6 +10,5 @@ export const fetchData = async ({ url }: FetchPropsType) => {
       Authorization: `Bearer ${accessToken}`,
     },
   });
-  const json = await response.json();
-  return json;
+  return (await response.ok) ? response.json() : null;
 };
