@@ -2,10 +2,19 @@ import { useState, useEffect } from "react";
 import styled from "@emotion/styled/macro";
 import { fetchData } from "../../common/fetchData";
 import Header from "./Header";
-import ThumbnailView from "../../components/ThumbnailView";
-import ListView from "../../components/ListView";
+import ThumbnailView from "./ThumbnailView";
+import ListView from "./ListView";
 import Aside from "./aside/Aside";
 import Pagination from "../../components/pagination/Pagination";
+import { movieType } from "../../common/movieType";
+import Spinner from "../../components/Spinner";
+
+type responseType = {
+  page: number;
+  results: movieType[];
+  total_pages: number;
+  total_results: number;
+};
 
 const Wrapper = styled.div`
   width: 100%;
@@ -19,6 +28,9 @@ const Main = styled.div`
     flex-direction: column;
   }
 `;
+const Error = styled.p`
+  padding-left: 30px;
+`;
 const PaginationWrap = styled.div`
   display: flex;
   justify-content: center;
@@ -31,15 +43,10 @@ const MainPage = () => {
   const [partialUrl, setPartialUrl] = useState(
     "https://api.themoviedb.org/3/discover/movie?api_key=dd4bd51f8d6385246bd537b189c291absort_by=popularity.desc&page="
   );
-  const [data, setData] = useState({
-    page: 0,
-    results: [],
-    total_pages: 0,
-    total_results: 0,
-  });
+  const [data, setData] = useState<responseType>();
   const errorMessage = "There are no movies that matched your query.";
 
-  const setInintialSort = (value: string) => {
+  const setInintialSortOrSearch = (value: string) => {
     setPartialUrl(value);
     setPage(1);
   };
@@ -55,11 +62,11 @@ const MainPage = () => {
       <Main>
         <Aside
           changeView={setIsCells}
-          changeMoviesArrangement={setInintialSort}
+          changeMoviesArrangement={setInintialSortOrSearch}
         />
-        {!data ? (
-          errorMessage
-        ) : (
+        {data === null && <Error>{errorMessage}</Error>}
+        {!data && <Spinner />}
+        {data && data !== null && (
           <div>
             {isCells ? (
               <ThumbnailView movies={data.results} />

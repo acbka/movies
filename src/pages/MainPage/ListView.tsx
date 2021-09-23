@@ -1,4 +1,4 @@
-import { movieType } from "../common/movieType";
+import { movieType } from "../../common/movieType";
 import styled from "@emotion/styled/macro";
 import MoviePreview from "./MoviePreview";
 
